@@ -1,0 +1,30 @@
+resources:
+- ../../base
+
+namespace: qa
+
+patches:
+- path: ingress-patch.yaml
+  target:
+    kind: Ingress
+    name: tetris
+- path: rollout-patch.yaml
+  target:
+    kind: Rollout
+    name: tetris
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: tetris-qa
+  target:
+    kind: Ingress
+    name: tetris
+
+configMapGenerator:
+- name: tetris-properties
+  behavior: replace
+  env: config.properties
+
+images:
+- name: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris
+  newTag: development-08a741a

@@ -1,0 +1,10 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: tetris
+spec:
+  strategy:
+    canary:
+      trafficRouting:
+        alb:
+          ingress: tetris-dev

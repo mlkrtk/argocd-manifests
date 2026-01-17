@@ -1,0 +1,22 @@
+resources: 
+- rollout.yaml
+- ingress.yaml
+- tetris-canary.yaml
+- tetris-stable.yaml
+- tetris-root.yaml
+
+labels:
+  - includeSelectors: true
+    includeTemplates: true
+    pairs:
+      app: tetris
+
+commonAnnotations:
+  app: tetris-annotations
+
+configMapGenerator:
+- name: tetris-properties
+  env: config.properties
+
+configurations:
+- kustomizeconfig.yaml

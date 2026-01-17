@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata: 
+  name: tetris
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing 
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/load-balancer-name: tetris
+    alb.ingress.kubernetes.io/subnets: subnet-0951a30ee59118610, subnet-071ff856a65f36fd2, subnet-0a435bdbd26c15d2c
+    alb.ingress.kubernetes.io/security-groups: sg-096bf0a91a57e4e59
+
+spec: 
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: tetris-root
+            port: 
+              name: use-annotation

@@ -1,0 +1,72 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: tetris
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: tetris
+  template:
+    metadata:
+      labels:
+        app: tetris
+    spec:
+      containers:
+      - image: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris:development-970a0c7
+        name: tetris
+        ports:
+        - containerPort: 80
+        resources:
+          limits:
+            cpu: "0.2"
+            memory: 300Mi
+          requests:
+            cpu: "0.1"
+            memory: 200Mi
+        volumeMounts:
+        - name: tetris-volume
+          mountPath: /data/
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          successThreshold: 1
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: tetris-volume
+        configMap:
+          name: tetris-properties   
+  strategy: 
+    canary: 
+      canaryService: tetris-canary
+      stableService: tetris-stable
+      trafficRouting: 
+        alb: 
+          ingress: tetris
+          servicePort: 80
+          rootService: tetris-root
+          stickinessConfig:
+            enabled: true 
+            durationSeconds: 3600
+      steps: 
+        - setWeight: 5
+        - pause: {}
+        - setWeight: 10
+        - pause: {duration: 30s}
+        - setWeight: 25
+        - pause: {duration: 30s}
+        - setWeight: 50
+        - pause: {duration: 30s}
+        - setWeight: 100
