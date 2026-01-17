@@ -27,4 +27,4 @@ configMapGenerator:
 
 images:
 - name: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris
-  newTag: "$dockerTag"
+  newTag: "development-75ab9e3"
