@@ -4,3 +4,5 @@ metadata:
   name: tetris
   annotations:
     alb.ingress.kubernetes.io/load-balancer-name: tetris-qa
+    alb.ingress.kubernetes.io/subnets: subnet-00c250cf2c1ab23b6, subnet-09f7ccf0fff208d46, subnet-0b3592f780f0bff17
+    alb.ingress.kubernetes.io/security-groups: sg-0d84ae0ebb4bc33f0

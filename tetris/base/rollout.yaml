@@ -13,7 +13,7 @@ spec:
         app: tetris
     spec:
       containers:
-      - image: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris:development-970a0c7
+      - image: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris:latest
         name: tetris
         ports:
         - containerPort: 80

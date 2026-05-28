@@ -27,4 +27,4 @@ configMapGenerator:
 
 images:
 - name: 891543987898.dkr.ecr.ap-south-1.amazonaws.com/tetris
-  newTag: development-08a741a
+  newTag: "development-8b4f204"
