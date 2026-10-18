@@ -49,6 +49,8 @@ spec:
           operator: Equal
           value: karpenter
           effect: NoSchedule
+      nodeSelector:
+        kubernetes.io/arch: amd64
       volumes:
       - name: tetris-volume
         configMap:
